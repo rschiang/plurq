@@ -1,0 +1,21 @@
+{
+    "name": "tw.poren.plurq",
+    "description": "Qt library for Plurk API 2.0",
+    "author": {
+        "name": "Poren Chiang",
+        "email": "hi@poren.tw"
+    },
+    "repository": {
+        "type": "GITHUB",
+        "url": "https://github.com/rschiang/plurq.git"
+    },
+    "version": {
+        "label": "0.1.0",
+        "revision": "",
+        "fingerprint": ""
+    },
+    "dependencies": [],
+    "license": "LGPL_3_0",
+    "qbs_filename": "plurk.qbs",
+    "webpage": "https://rschiang.github.io/plurq"
+}
