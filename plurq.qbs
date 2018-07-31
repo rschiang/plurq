@@ -1,17 +1,16 @@
 import qbs
 
-Product {
-	type: "staticlibrary"
+StaticLibrary {
     name: "Plurq"
-	Depends { name: "cpp" }
+    Depends { name: "cpp" }
     Depends {
         name: "Qt"
         submodules: ["core", "gui", "network", "networkauth"]
     }
 
     files: ["*.cpp", "*.h"]
-	Export {
-		Depends { name: "cpp" }
-		cpp.includePaths: [product.sourceDirectory]
+    Export {
+        Depends { name: "cpp" }
+        cpp.includePaths: [product.sourceDirectory]
 	}
 }

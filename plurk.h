@@ -30,7 +30,8 @@ protected slots:
 
 private:
     Q_DISABLE_COPY(Plurk)
-    Q_DECLARE_PRIVATE(Plurk)
+    QString m_deviceId;
+    QOAuthHttpServerReplyHandler *m_replyHandler = nullptr;
 };
 
 #endif // PLURK_H

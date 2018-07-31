@@ -1,9 +1,10 @@
 #include "plurk.h"
-#include "plurk_p.h"
 #include <QDesktopServices>
 #include <QHostAddress>
 #include <QSysInfo>
 #include <QUuid>
+
+#define PLURK_CALLBACK_RECEIVED_TEXT "Plurk authorization completed! Feel free to close this page."
 
 Plurk::Plurk(QObject *parent) :
     Plurk(QString(), QString(), parent)
@@ -25,14 +26,12 @@ Plurk::Plurk(const QString &clientIdentifier, const QString &clientSharedSecret,
 
 QString Plurk::deviceId() const
 {
-    Q_D(const Plurk);
-    return d->deviceId;
+    return m_deviceId;
 }
 
 void Plurk::setDeviceId(const QString &deviceId)
 {
-    Q_D(Plurk);
-    d->deviceId = deviceId;
+    m_deviceId = deviceId;
 }
 
 void Plurk::restoreTokenCredentials(const QString &token, const QString &tokenSecret)
@@ -50,15 +49,13 @@ QUrl Plurk::apiUrl(const QString &endpoint)
 
 void Plurk::grant()
 {
-    Q_D(Plurk);
-
     // Setup local callback listener for OAuth verifier
-    if (!d->replyHandler) {
+    if (!m_replyHandler) {
         QHostAddress host(QHostAddress::LocalHost);
         auto replyHandler = new QOAuthHttpServerReplyHandler(host, 0, this);
         replyHandler->setCallbackPath("callback");
         replyHandler->setCallbackText(tr(PLURK_CALLBACK_RECEIVED_TEXT) + "<script>window.location='https://www.plurk.com';</script>");
-        d->replyHandler = replyHandler;
+        m_replyHandler = replyHandler;
         setReplyHandler(replyHandler);
     }
 
@@ -66,15 +63,13 @@ void Plurk::grant()
 }
 
 void Plurk::authorizeWithBrowser(QUrl url) {
-    Q_D(Plurk);
-
     // Generate device ID if there were none
-    if (!d->deviceId.isEmpty())
-        d->deviceId = QUuid::createUuid().toRfc4122().toHex();
+    if (m_deviceId.isEmpty())
+        m_deviceId = QUuid::createUuid().toRfc4122().toHex();
 
     QUrlQuery query(url);
     query.addQueryItem("model", QSysInfo::prettyProductName());
-    query.addQueryItem("deviceid", d->deviceId);
+    query.addQueryItem("deviceid", m_deviceId);
 
     url.setQuery(query);
     QDesktopServices::openUrl(url);
