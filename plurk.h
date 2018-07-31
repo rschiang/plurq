@@ -13,12 +13,17 @@ class Plurk: public QOAuth1
 
 public:
     Plurk(QObject *parent = nullptr);
-    Plurk(const QPair<QString, QString> &clientCredentials, QObject *parent = nullptr);
+    Plurk(const QString &clientIdentifier, const QString &clientSharedSecret, QObject *parent = nullptr);
 
-    QString deviceId();
+    QString deviceId() const;
     void setDeviceId(const QString &deviceId);
 
+    void restoreTokenCredentials(const QString &token, const QString &tokenSecret);
+
     static QUrl apiUrl(const QString &endpoint);
+
+public slots:
+    void grant();
 
 protected slots:
     void authorizeWithBrowser(QUrl url);
