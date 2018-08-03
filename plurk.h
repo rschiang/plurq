@@ -5,6 +5,8 @@
 #include <QtNetwork>
 #include <QtNetworkAuth>
 
+namespace Plurq {
+
 class PlurkPrivate;
 class Plurk: public QOAuth1
 {
@@ -33,5 +35,7 @@ private:
     QString m_deviceId;
     QOAuthHttpServerReplyHandler *m_replyHandler = nullptr;
 };
+
+}
 
 #endif // PLURK_H

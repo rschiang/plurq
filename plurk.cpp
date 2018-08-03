@@ -6,6 +6,8 @@
 
 #define PLURK_CALLBACK_RECEIVED_TEXT "Plurk authorization completed! Feel free to close this page."
 
+using namespace Plurq;
+
 Plurk::Plurk(QObject *parent) :
     Plurk(QString(), QString(), parent)
 {}
