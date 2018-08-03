@@ -8,7 +8,11 @@ StaticLibrary {
         submodules: ["core", "gui", "network", "networkauth"]
     }
 
-    files: ["*.cpp", "*.h"]
+    files: [
+        "*.cpp",
+        "*.h",
+        "Plurk",
+    ]
     Export {
         Depends { name: "cpp" }
         cpp.includePaths: [product.sourceDirectory]

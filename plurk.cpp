@@ -43,10 +43,10 @@ void Plurk::restoreTokenCredentials(const QString &token, const QString &tokenSe
         setStatus(Status::Granted);
 }
 
-QUrl Plurk::apiUrl(const QString &endpoint)
+QUrl Plurk::buildUrl(const QString &apiPath)
 {
     static const QUrl baseUrl("https://www.plurk.com/APP/");
-    return baseUrl.resolved(QUrl(endpoint));
+    return baseUrl.resolved(QUrl(apiPath));
 }
 
 void Plurk::grant()

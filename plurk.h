@@ -20,9 +20,19 @@ public:
     QString deviceId() const;
     void setDeviceId(const QString &deviceId);
 
+    using QOAuth1::get;
+    inline QNetworkReply* get(const QString &apiPath, const QVariantMap &parameters = QVariantMap()) {
+        return get(buildUrl(apiPath), parameters);
+    }
+
+    using QOAuth1::post;
+    inline QNetworkReply* post(const QString &apiPath, const QVariantMap &parameters = QVariantMap()) {
+        return post(buildUrl(apiPath), parameters);
+    }
+
     void restoreTokenCredentials(const QString &token, const QString &tokenSecret);
 
-    static QUrl apiUrl(const QString &endpoint);
+    static QUrl buildUrl(const QString &apiPath);
 
 public slots:
     void grant();
