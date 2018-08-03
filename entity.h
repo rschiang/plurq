@@ -11,12 +11,13 @@ class Entity
 public:
     Entity(QIODevice* stream);
 
-    bool valid();
+    bool valid() const;
     QJsonObject& entity();
+    QJsonValue operator[](QLatin1String key) const;
 
 protected:
     Entity();
-    Entity(QJsonObject);
+    Entity(QJsonObject&);
 
     bool m_valid = false;
     QJsonObject m_entity;

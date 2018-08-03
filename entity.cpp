@@ -7,7 +7,7 @@ using namespace Plurq;
 Entity::Entity()
 {}
 
-Entity::Entity(QJsonObject entity)
+Entity::Entity(QJsonObject &entity)
 {
     m_entity = entity;
     m_valid = true;
@@ -26,7 +26,7 @@ Entity::Entity(QIODevice *stream)
     }
 }
 
-bool Entity::valid()
+bool Entity::valid() const
 {
     return m_valid;
 }
@@ -34,4 +34,9 @@ bool Entity::valid()
 QJsonObject& Entity::entity()
 {
     return m_entity;
+}
+
+QJsonValue Entity::operator[](QLatin1String key) const
+{
+    return m_entity[key];
 }
