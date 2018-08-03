@@ -4,37 +4,11 @@
 
 using namespace Plurq;
 
-Profile::Profile()
+Profile::Profile(QIODevice* stream)
+    : Entity::Entity(stream)
 {}
 
-Profile::Profile(QJsonObject entity)
+QJsonValue Profile::displayName() const
 {
-    m_entity = entity;
-    m_valid = true;
+    return m_entity.value("display_name");
 }
-
-Profile Profile::fromStream(QIODevice *stream)
-{
-    QJsonParseError parseError;
-    const QByteArray data = stream->readAll();
-    const QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
-    if (parseError.error) {
-        qDebug() << "Error parsing Profile JSON" << parseError.errorString();
-        return Profile();
-    } else {
-        const QJsonObject entity = doc.object();
-        return Profile(entity);
-    }
-}
-
-bool Profile::valid()
-{
-    return m_valid;
-}
-
-QJsonObject& Profile::entity()
-{
-    return m_entity;
-}
-
-

@@ -1,25 +1,16 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
-#include <QJsonObject>
-#include <QIODevice>
+#include "entity.h"
 
 namespace Plurq {
 
-class Profile
+class Profile : public Entity
 {
 public:
-    bool valid();
-    QJsonObject& entity();
+    Profile(QIODevice* stream);
 
-    static Profile fromStream(QIODevice* stream);
-
-protected:
-    Profile();
-    Profile(QJsonObject);
-
-    bool m_valid = false;
-    QJsonObject m_entity;
+    QJsonValue displayName() const;
 };
 
 }
