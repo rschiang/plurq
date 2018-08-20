@@ -19,7 +19,7 @@ Entity::Entity(QIODevice *stream)
     const QByteArray data = stream->readAll();
     const QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
     if (parseError.error) {
-        qDebug() << "Error parsing Profile JSON" << parseError.errorString();
+        qDebug() << "Error parsing JSON entity" << parseError.errorString();
     } else {
         m_entity = doc.object();
         m_valid = true;
