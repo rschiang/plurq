@@ -10,7 +10,8 @@ namespace Plurq {
 class Entity
 {
 public:
-    Entity(QIODevice* stream);
+    Entity(QIODevice *stream);
+    Entity(const QByteArray &json);
 
     bool valid() const;
     QJsonObject& entity();
