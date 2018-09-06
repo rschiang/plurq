@@ -2,12 +2,7 @@
 
 using namespace Plurq;
 
-Post::Post(QIODevice* stream)
-    : Entity::Entity(stream)
-{}
-
-QDateTime Post::posted() const
+bool Post::secret() const
 {
-    QString value = stringValue(QLatin1String("posted"));
-    return QDateTime::fromString(value, Qt::RFC2822Date);
+    return !((*this)[QLatin1String("limited_to")].isNull());
 }

@@ -15,9 +15,9 @@ enum Avatar
 
 class Profile : public Entity
 {
-public:
-    Profile(QIODevice* stream);
+    using Entity::Entity;
 
+public:
     inline int id() const { return intValue(QLatin1String("id")); }
     inline QString nickName() const { return stringValue(QLatin1String("nick_name")); }
     inline QString displayName() const { return stringValue(QLatin1String("display_name")); }

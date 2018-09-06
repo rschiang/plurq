@@ -1,2 +1,5 @@
 #include "plurk.h"
+#include "entity.h"
+#include "array.h"
+#include "post.h"
 #include "profile.h"

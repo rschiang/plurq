@@ -1,23 +1,24 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <QDateTime>
+#include <QIODevice>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QIODevice>
 
 namespace Plurq {
 
 class Entity
 {
+    friend class Array;
 public:
-    Entity(QIODevice *stream);
-    Entity(const QByteArray &json);
+    Entity(const QJsonObject &entity);
+    explicit Entity(QIODevice *stream);
+    explicit Entity(const QByteArray &json);
 
-    bool valid() const;
-    QJsonObject& entity();
-
+    inline bool valid() const { return m_valid; }
+    inline QJsonObject& entity() { return m_entity; }
     inline QJsonValue operator[](QLatin1String key) const { return m_entity[key]; }
-    template<typename T> inline T operator[](QLatin1String key) const { return T(m_entity[key].toObject()); }
 
     inline int intValue(QLatin1String key) const { return m_entity[key].toInt(); }
     inline bool boolValue(QLatin1String key) const { return m_entity[key].toBool(); }
@@ -26,10 +27,9 @@ public:
     inline QJsonArray arrayValue(QLatin1String key) const { return m_entity[key].toArray(); }
     inline QJsonObject objectValue(QLatin1String key) const { return m_entity[key].toObject(); }
 
-protected:
-    Entity();
-    Entity(QJsonObject&);
+    QDateTime dateValue(QLatin1String key) const;
 
+protected:
     bool m_valid = false;
     QJsonObject m_entity;
 };

@@ -4,17 +4,14 @@
 
 using namespace Plurq;
 
-Entity::Entity()
-{}
-
-Entity::Entity(QJsonObject &entity)
+Entity::Entity(const QJsonObject &entity)
+    : m_entity(entity)
 {
-    m_entity = entity;
     m_valid = true;
 }
 
 Entity::Entity(QIODevice *stream)
-    : Entity::Entity(stream->readAll())
+    : Entity(stream->readAll())
 {}
 
 Entity::Entity(const QByteArray &json)
@@ -30,12 +27,7 @@ Entity::Entity(const QByteArray &json)
     }
 }
 
-bool Entity::valid() const
+QDateTime Entity::dateValue(QLatin1String key) const
 {
-    return m_valid;
-}
-
-QJsonObject& Entity::entity()
-{
-    return m_entity;
+     return QDateTime::fromString(m_entity[key].toString(), Qt::RFC2822Date);
 }

@@ -5,10 +5,6 @@
 
 using namespace Plurq;
 
-Profile::Profile(QIODevice* stream)
-    : Entity::Entity(stream)
-{}
-
 QUrl Profile::avatarUrl(Avatar size) const
 {
     bool hasProfileImage = (intValue(QLatin1String("has_profile_image")) == 1);
@@ -39,8 +35,7 @@ QUrl Profile::avatarUrl(Avatar size) const
 bool Profile::birthday() const
 {
     if (intValue(QLatin1String("bday_privacy")) != 0) {
-        QString value = stringValue(QLatin1String("date_of_birth"));
-        QDate date = QDateTime::fromString(value, Qt::RFC2822Date).date();
+        QDate date = dateValue(QLatin1String("date_of_birth")).date();
         QDate today = QDate::currentDate();
         return (date.month() == today.month()) && (date.day() == today.day());
     } else {
