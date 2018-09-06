@@ -20,6 +20,7 @@ Entity::Entity(QIODevice *stream)
     const QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
     if (parseError.error) {
         qDebug() << "Error parsing JSON entity" << parseError.errorString();
+        qDebug() << QString::fromUtf8(data.data());
     } else {
         m_entity = doc.object();
         m_valid = true;
@@ -34,9 +35,4 @@ bool Entity::valid() const
 QJsonObject& Entity::entity()
 {
     return m_entity;
-}
-
-QJsonValue Entity::operator[](QLatin1String key) const
-{
-    return m_entity[key];
 }

@@ -18,13 +18,13 @@ class Profile : public Entity
 public:
     Profile(QIODevice* stream);
 
-    inline int id() const { return m_entity[QLatin1String("id")].toInt(); }
-    inline QString nickName() const { return m_entity[QLatin1String("nick_name")].toString(); }
-    inline QString displayName() const { return m_entity[QLatin1String("display_name")].toString(); }
-    inline QString location() const { return m_entity[QLatin1String("location")].toString(); }
-    inline QString fullName() const { return m_entity[QLatin1String("full_name")].toString(); }
-    inline double karma() const { return m_entity[QLatin1String("karma")].toDouble(); }
-    inline bool premium() const { return m_entity[QLatin1String("premium")].toBool(); }
+    inline int id() const { return intValue(QLatin1String("id")); }
+    inline QString nickName() const { return stringValue(QLatin1String("nick_name")); }
+    inline QString displayName() const { return stringValue(QLatin1String("display_name")); }
+    inline QString location() const { return stringValue(QLatin1String("location")); }
+    inline QString fullName() const { return stringValue(QLatin1String("full_name")); }
+    inline double karma() const { return doubleValue(QLatin1String("karma")); }
+    inline bool premium() const { return boolValue(QLatin1String("premium")); }
 
     QUrl avatarUrl(Avatar size = Avatar::Medium) const;
     bool birthday() const;

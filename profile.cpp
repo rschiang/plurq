@@ -11,8 +11,8 @@ Profile::Profile(QIODevice* stream)
 
 QUrl Profile::avatarUrl(Avatar size) const
 {
-    bool hasProfileImage = (m_entity[QLatin1String("has_profile_image")].toInt() == 1);
-    auto avatar = m_entity[QLatin1String("avatar")];
+    bool hasProfileImage = (intValue(QLatin1String("has_profile_image")) == 1);
+    auto avatar = (*this)[QLatin1String("avatar")];
 
     if (!hasProfileImage) {
         switch (size) {
@@ -38,8 +38,8 @@ QUrl Profile::avatarUrl(Avatar size) const
 
 bool Profile::birthday() const
 {
-    if (m_entity[QLatin1String("bday_privacy")].toInt() != 0) {
-        QString value = m_entity[QLatin1String("date_of_birth")].toString();
+    if (intValue(QLatin1String("bday_privacy")) != 0) {
+        QString value = stringValue(QLatin1String("date_of_birth"));
         QDate date = QDateTime::fromString(value, Qt::RFC2822Date).date();
         QDate today = QDate::currentDate();
         return (date.month() == today.month()) && (date.day() == today.day());
