@@ -5,10 +5,8 @@
 using namespace Plurq;
 
 Entity::Entity(const QJsonObject &entity)
-    : m_entity(entity)
-{
-    m_valid = true;
-}
+    : m_valid(true), m_entity(entity)
+{}
 
 Entity::Entity(QIODevice *stream)
     : Entity(stream->readAll())

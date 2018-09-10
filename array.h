@@ -21,11 +21,11 @@ public:
     class iterator {
         friend class Array;
     public:
-        iterator& operator++();
-        iterator& operator=(const iterator&);
-        bool operator==(const iterator&) const;
-        bool operator!=(const iterator&) const;
-        QJsonObject operator*() const;
+        inline iterator& operator++() { i++; return *this; }
+        inline iterator& operator=(const iterator &other) { i = other.i; return *this; }
+        inline bool operator==(const iterator &other) const { return i == other.i; }
+        bool operator!=(const iterator &other) const { return i != other.i; }
+        QJsonObject operator*() const { return array[i].toObject(); }
 
     protected:
         iterator(const Array&, int);

@@ -5,10 +5,8 @@
 using namespace Plurq;
 
 Array::Array(const QJsonArray &array)
-    : m_array(array)
-{
-    m_valid = true;
-}
+    : m_valid(true), m_array(array)
+{}
 
 Array::Array(QIODevice *stream)
     : Array(stream->readAll())
@@ -40,30 +38,3 @@ Array::iterator Array::end() const
 Array::iterator::iterator(const Array &array, int i)
     : array(array), i(i)
 {}
-
-Array::iterator& Array::iterator::operator++()
-{
-    i++;
-    return *this;
-}
-
-Array::iterator& Array::iterator::operator=(const Array::iterator &other)
-{
-    i = other.i;
-    return *this;
-}
-
-bool Array::iterator::operator==(const Array::iterator &other) const
-{
-    return i == other.i;
-}
-
-bool Array::iterator::operator!=(const Array::iterator &other) const
-{
-    return i != other.i;
-}
-
-QJsonObject Array::iterator::operator*() const
-{
-    return array[i].toObject();
-}
