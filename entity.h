@@ -12,6 +12,7 @@ class Entity
 {
     friend class Array;
 public:
+    explicit Entity();
     Entity(const QJsonObject &entity);
     explicit Entity(QIODevice *stream);
     explicit Entity(const QByteArray &json);

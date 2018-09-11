@@ -4,6 +4,10 @@
 
 using namespace Plurq;
 
+Entity::Entity()
+    : m_valid(false)
+{}
+
 Entity::Entity(const QJsonObject &entity)
     : m_valid(true), m_entity(entity)
 {}
