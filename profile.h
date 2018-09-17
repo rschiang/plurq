@@ -28,6 +28,7 @@ public:
 
     QUrl avatarUrl(Avatar size = Avatar::Medium) const;
     bool birthday() const;
+    QString name() const;
 };
 
 }

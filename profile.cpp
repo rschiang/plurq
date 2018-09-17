@@ -42,3 +42,12 @@ bool Profile::birthday() const
         return false;
     }
 }
+
+QString Profile::name() const
+{
+    QString result;
+    if ((result = displayName()).isEmpty())
+        if ((result = fullName()).isEmpty())
+            return nickName();
+    return result;
+}
